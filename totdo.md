@@ -1,0 +1,12 @@
+- abhibhavak ko sanrakshak
+- jugaani kaka ka prernasrot ka ek alag hi section banega 
+- jugani kak ab sanrakshak mein nahi aayenge
+- site pe likhi gayi hindi content ko bhojpuri mein convert karna hai
+- CMS part 1 ke liye abhi add gallery bananhai jisse  cloudinary par images or videos upload ho sakein,
+aur image ko sahi jagah par abhi ke liye statically map karna hai,
+- nayi db connect karni hai
+- or shop hatana hai
+- 80 G ke baare mein content daalna hai
+- or responsive karna hai.
+- payment gateway add karna hai
+- 
