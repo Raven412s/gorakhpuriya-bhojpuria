@@ -14,9 +14,10 @@ export function useGsapReveal(selector?: string) {
         ? gsap.utils.toArray(selector)
         : [elementRef.current];
 
-      targets.forEach((target: any) => {
+      targets.forEach((target) => {
+        const el = target as HTMLElement;
         gsap.fromTo(
-          target,
+          el,
           {
             y: 100,
             opacity: 0,
@@ -27,7 +28,7 @@ export function useGsapReveal(selector?: string) {
             duration: 1,
             ease: "power3.out",
             scrollTrigger: {
-              trigger: target,
+              trigger: el,
               start: "top 80%",
               end: "bottom 20%",
               toggleActions: "play none none reverse",

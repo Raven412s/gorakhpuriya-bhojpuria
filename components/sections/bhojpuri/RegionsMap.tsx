@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/style/useTemplate: explanation */
 "use client";
 import { motion } from "framer-motion";
 import { MapPin, Navigation, Users } from "lucide-react";

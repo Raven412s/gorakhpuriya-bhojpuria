@@ -2,7 +2,7 @@
 
 import { gsap } from 'gsap';
 import {
-    ReactNode,
+    type ReactNode,
     useLayoutEffect,
     useRef
 } from 'react';

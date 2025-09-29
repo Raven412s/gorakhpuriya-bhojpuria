@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { Award, Book, Film, Heart, Music, Users } from "lucide-react";
+import { Book, Film, Music } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -67,9 +67,9 @@ export default function LanguageFeatures() {
                     {feature.description}
                   </p>
                   <ul className="space-y-2">
-                    {feature.examples.map((example, idx) => (
+                    {feature.examples.map((example, _idx) => (
                       <li
-                        key={idx}
+                        key={example}
                         className="flex items-center text-sm text-gray-500"
                       >
                         <div className="w-1.5 h-1.5 bg-red-500 rounded-full mr-2"></div>
