@@ -8,7 +8,11 @@ import type { ChannelVideo } from "@/lib/youtube-api";
 export default async function InterviewsPage() {
   let videos: ChannelVideo[] = [];
   try {
-    const res = await fetch("/api/youtube", { cache: "no-store" });
+    const baseUrl = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
+
+    const res = await fetch(`${baseUrl}/api/youtube`, { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to load videos");
     videos = await res.json();
   } catch (err) {
