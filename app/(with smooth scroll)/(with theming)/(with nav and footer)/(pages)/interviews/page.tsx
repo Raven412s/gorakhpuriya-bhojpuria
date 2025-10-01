@@ -8,7 +8,7 @@ import type { ChannelVideo } from "@/lib/youtube-api";
 export default async function InterviewsPage() {
   let videos: ChannelVideo[] = [];
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/youtube`, { cache: "no-store" });
+    const res = await fetch("/api/youtube", { cache: "no-store" });
     if (!res.ok) throw new Error("Failed to load videos");
     videos = await res.json();
   } catch (err) {
