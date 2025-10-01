@@ -1,14 +1,21 @@
 // app/(pages)/interviews/page.tsx
-import SectionWrapper from "@/components/wrappers/SectionWrapper";
-import YoutubeVideoModal from "@/components/custom/cards/YoutubeVideoModal";
-import { fetchChannelVideos } from "@/lib/youtube-api";
-import PageHeader from "@/components/sections/shared/PageHeader";
 
-const CHANNEL_ID = "UCMkA4cP8P2UoXAapQDK-GTw";
-const API_KEY = process.env.YOUTUBE_API_KEY!; // put in .env.local
+import YoutubeVideoModal from "@/components/custom/cards/YoutubeVideoModal";
+import PageHeader from "@/components/sections/shared/PageHeader";
+import SectionWrapper from "@/components/wrappers/SectionWrapper";
+import type { ChannelVideo } from "@/lib/youtube-api";
 
 export default async function InterviewsPage() {
-  const videos = await fetchChannelVideos(CHANNEL_ID, API_KEY);
+  let videos: ChannelVideo[] = [];
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/youtube`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load videos");
+    videos = await res.json();
+  } catch (err) {
+    console.error("YouTube fetch error:", err);
+  }
+
+
 
   return (
     <SectionWrapper
