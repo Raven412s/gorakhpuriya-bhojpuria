@@ -10,17 +10,28 @@ cloudinary.config({
 
 export async function GET() {
   try {
-    const result = await cloudinary.api.resources({
-      type: "upload",
-      max_results: 500,
-    });
+    const [images, videos] = await Promise.all([
+      cloudinary.api.resources({
+        type: "upload",
+        resource_type: "image",
+        max_results: 500,
+      }),
+      cloudinary.api.resources({
+        type: "upload",
+        resource_type: "video",
+        max_results: 500,
+      }),
+    ]);
 
-    return NextResponse.json({ images: result.resources });
+    // merge both
+    const resources = [...images.resources, ...videos.resources];
+
+    return NextResponse.json({ images: resources });
   } catch (error) {
-    console.error("Error fetching images:", error);
+    console.error("Error fetching media:", error);
     return NextResponse.json(
-      { error: "Failed to fetch images" },
-      { status: 500 },
+      { error: "Failed to fetch media" },
+      { status: 500 }
     );
   }
 }

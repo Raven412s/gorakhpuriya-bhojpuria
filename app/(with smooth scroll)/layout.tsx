@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import "../globals.css";
 import { Lexend, Nunito, Poppins } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
 
 export const poppins = Poppins({
   subsets: ["latin"],
@@ -39,10 +40,12 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
-          enableSystem
           disableTransitionOnChange
         >
-          <ReactLenis root>{children}</ReactLenis>
+          <ReactLenis root>
+            {children}
+            <Toaster position="bottom-right" richColors closeButton/>
+          </ReactLenis>
         </ThemeProvider>
       </body>
     </html>

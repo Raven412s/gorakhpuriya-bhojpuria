@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com", // for Cloudinary assets
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "img.youtube.com", // for Cloudinary assets
+        pathname: "/**",
+      },
     ],
   },
 };

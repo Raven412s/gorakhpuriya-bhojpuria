@@ -2,24 +2,33 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Sheet } from "@/components/ui/sheet";
 import Logo from "./Logo";
 
-const navItems = [
+const BASE_NAV = [
   { href: "/", label: "गृह" },
   { href: "/about", label: "हमरे बारे में" },
   { href: "/bhojpuri-bhasa", label: "भोजपुरी भाषा" },
   { href: "/mentors", label: "हमरे अभिभावक" },
   { href: "/events", label: "बैइठकी जुटान" },
-  { href: "/interviews", label: "इंटरव्यू" },
-  { href: "/shop", label: "दुकान" },
+  { href: "/interviews", label: "बतकही" },
+  // shop will be added dynamically when needed by the maintenance server.
   { href: "/media-partners", label: "मीडिया साथी" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const showShop = (process.env.NEXT_PUBLIC_SHOW_SHOP ?? "").toLowerCase() === "true";
+  const navItems = useMemo(() => {
+    const items = [...BASE_NAV];
+    if (showShop) {
+      // insert shop before media-partners (index 6)
+      items.splice(6, 0, { href: "/shop", label: "दुकान" });
+    }
+    return items;
+  }, [showShop]);
 
   return (
     <motion.nav
@@ -51,9 +60,8 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`relative font-medium transition-colors hover:text-red-600 ${
-                  pathname === item.href ? "text-red-600" : "text-gray-700"
-                }`}
+                className={`relative font-medium transition-colors hover:text-red-600 ${pathname === item.href ? "text-red-600" : "text-gray-700"
+                  }`}
               >
                 {item.label}
                 {pathname === item.href && (

@@ -8,57 +8,37 @@ import { useEffect, useRef, useState } from "react";
 import { useGsapReveal } from "@/components/animations/useGsapReveal";
 import { Button } from "@/components/ui/button";
 
-const sliderImages = [
-  {
-    id: 1,
-    src: "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759130060/uploads/zzxwoidyy9taboqbv0dh.jpg",
-    alt: "Gorakhpuriya Bhojpuria Group Photo",
-    title: "गोरखपुरिया भोजपुरिया परिवार",
-    description: "भोजपुरी भाषा के सम्मान खातिर संकल्पित",
-  },
-  {
-    id: 2,
-    src: "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759131316/uploads/jnarcbnymm0zd3c5evo6.png",
-    alt: "Gorakhpuriya Bhojpuria Group Photo",
-    title: "गोरखपुरिया भोजपुरिया परिवार",
-    description: "भोजपुरी भाषा के सम्मान खातिर संकल्पित",
-  },
-  {
-    id: 3,
-    src: "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759131965/IMG_4573_odp7oy.jpg",
-    alt: "Gorakhpuriya Bhojpuria Group Photo",
-    title: "गोरखपुरिया भोजपुरिया परिवार",
-    description: "भोजपुरी भाषा के सम्मान खातिर संकल्पित",
-  },
-  {
-    id: 4,
-    src: "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759130596/uploads/hdnigtpp8ns3eefb2kkw.jpg",
-    alt: "Gorakhpuriya Bhojpuria Group Photo",
-    title: "गोरखपुरिया भोजपुरिया परिवार",
-    description: "भोजपुरी भाषा के सम्मान खातिर संकल्पित",
-  },
-  {
-    id: 5,
-    src: "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759130607/uploads/jla9qhaxtseesua1rpt6.jpg",
-    alt: "Gorakhpuriya Bhojpuria Group Photo",
-    title: "गोरखपुरिया भोजपुरिया परिवार",
-    description: "भोजपुरी भाषा के सम्मान खातिर संकल्पित",
-  },
-];
+// Type definitions
+export type SliderImageObj = {
+  id: number;
+  src: string;
+  alt: string;
+  title: string;
+  description: string;
+};
 
-export default function HeroSlider() {
+type HeroSliderProps = {
+  sliderImages: SliderImageObj[] | string[];
+};
+
+export default function HeroSlider({ sliderImages }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   useGsapReveal("#hero-slider");
 
+  // detect if array is object[] or string[]
+  const isObjectArray = (arr: typeof sliderImages): arr is SliderImageObj[] =>
+    typeof arr[0] === "object";
+
+  
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
     }, 5000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [sliderImages.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % sliderImages.length);
@@ -91,57 +71,67 @@ export default function HeroSlider() {
         >
           <div className="relative w-full h-full">
             <Image
-              src={sliderImages[currentSlide].src}
-              alt={sliderImages[currentSlide].alt}
+              src={
+                isObjectArray(sliderImages)
+                  ? sliderImages[currentSlide]?.src
+                  : (sliderImages[currentSlide] as string)
+              }
+              alt={
+                isObjectArray(sliderImages)
+                  ? sliderImages[currentSlide]?.alt
+                  : `Slide ${currentSlide + 1}`
+              }
               fill
               className="object-cover"
             />
 
-            {/* Only bottom fade overlay */}
+            {/* Bottom gradient overlay always */}
             <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
           </div>
 
-          {/* Content Overlay */}
-          <div className="absolute inset-0 flex items-end justify-center pb-40">
-            <div className="text-center text-white px-4 max-w-4xl">
-              <motion.h1
-                initial={{ y: 50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.8 }}
-                className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-2xl"
-              >
-                {sliderImages[currentSlide].title}
-              </motion.h1>
-              <motion.p
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="text-xl md:text-2xl mb-8 drop-shadow-lg"
-              >
-                {sliderImages[currentSlide].description}
-              </motion.p>
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.9, duration: 0.8 }}
-                className="flex gap-4 justify-center"
-              >
-                <Button
-                  size="lg"
-                  className="bg-yellow-400 text-black font-semibold hover:bg-yellow-300 transition px-8"
+          {/* Content Overlay only if object array */}
+          {isObjectArray(sliderImages) && (
+            <div className="absolute inset-0 flex items-end justify-center pb-40">
+              <div className="text-center text-white px-4 max-w-4xl">
+                <motion.h1
+                  initial={{ y: 50, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.8 }}
+                  className="text-4xl md:text-6xl font-bold mb-4 drop-shadow-2xl"
                 >
-                  संस्कृति जानें
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="text-black hover:text-black font-semibold transition px-8"
+                  {sliderImages[currentSlide]?.title}
+                </motion.h1>
+                <motion.p
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="text-xl md:text-2xl mb-8 drop-shadow-lg"
                 >
-                  जुड़ें अभियान से
-                </Button>
-              </motion.div>
+                  {sliderImages[currentSlide]?.description}
+                </motion.p>
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.9, duration: 0.8 }}
+                  className="flex gap-4 justify-center"
+                >
+                  <Button
+                    size="lg"
+                    className="bg-yellow-400 text-black font-semibold hover:bg-yellow-300 transition px-8"
+                  >
+                    संस्कृति जानें
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="text-black hover:text-black font-semibold transition px-8"
+                  >
+                    जुड़ें अभियान से
+                  </Button>
+                </motion.div>
+              </div>
             </div>
-          </div>
+          )}
         </motion.div>
       </AnimatePresence>
 

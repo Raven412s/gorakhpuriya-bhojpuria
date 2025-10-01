@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ImageInput } from "../ui/image-input";
 
-const ImageUploaderCloudinary = () => {
+const ImageUploadSingle = () => {
   const [imageUrl, setImageUrl] = useState("");
 
   return (
@@ -31,4 +31,4 @@ const ImageUploaderCloudinary = () => {
   );
 };
 
-export default ImageUploaderCloudinary;
+export default ImageUploadSingle;

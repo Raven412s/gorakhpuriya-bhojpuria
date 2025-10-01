@@ -32,6 +32,7 @@ export async function POST(req: Request) {
         // Cloudinary upload
         const result = await cloudinary.uploader.upload(dataUri, {
           folder: "uploads",
+          resource_type: "auto"
         });
 
         return result;

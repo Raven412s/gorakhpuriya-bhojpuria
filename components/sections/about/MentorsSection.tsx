@@ -13,6 +13,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const juganiGallery = [
   // अपनी असली images यहाँ जोड़ें (स्थानीय या remote URLs)
   "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759130621/uploads/opz77l27mu1lmevfgp2s.jpg",
+  "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759186294/uploads/q502eztiib7eyt871qzz.jpg",
   "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759135332/DSC_0371_kyehnm.jpg",
   "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759135452/DSC_0420_yysh65.jpg",
   "https://res.cloudinary.com/dfhxmmjyq/image/upload/v1759136190/WhatsApp_Image_2025-09-29_at_14.25.25_9912ae12_b80cjp.jpg",

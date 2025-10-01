@@ -31,15 +31,15 @@ export default function GalleryPage() {
     }
   };
   
-  const handleFilesUpload = async (files: FileList) => {
-    const form = new FormData();
-    for (const f of Array.from(files)) {
-      form.append("files", f); // कोई return नहीं
-    }
-    const res = await fetch("/api/admin/upload", { method: "POST", body: form });
-    if (!res.ok) throw new Error("Upload failed");
-    return res.json();
-  };
+  // const handleFilesUpload = async (files: FileList) => {
+  //   const form = new FormData();
+  //   for (const f of Array.from(files)) {
+  //     form.append("files", f); // कोई return नहीं
+  //   }
+  //   const res = await fetch("/api/admin/upload", { method: "POST", body: form });
+  //   if (!res.ok) throw new Error("Upload failed");
+  //   return res.json();
+  // };
 
 
   const deleteImage = async (publicId: string) => {
@@ -84,7 +84,6 @@ export default function GalleryPage() {
         images={images}
         isLoading={isLoading}
         fetchImages={fetchImages}
-        handleFilesUpload={handleFilesUpload}
         deleteImage={deleteImage}
         copyToClipboard={copyToClipboard}
         formatFileSize={formatFileSize}
