@@ -13,6 +13,7 @@ import {
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
 
 const futurePlans = [
   {
@@ -74,7 +75,7 @@ const futurePlans = [
 export default function FuturePlans() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
+const router = useRouter()
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -150,8 +151,8 @@ export default function FuturePlans() {
                       <div className="w-16 bg-gray-200 rounded-full h-1">
                         <div
                           className={`bg-gradient-to-r ${plan.color} h-1 rounded-full`}
-                          style={{ width: `${Math.random() * 30 + 20}%` }}
-                        ></div>
+                          style={{ width: `${Math.floor(Math.random() * 13 + 20)}%` }}
+                        />
                       </div>
                     </div>
                   </div>
@@ -177,7 +178,7 @@ export default function FuturePlans() {
               हिस्सा बनें
             </p>
             <div className="flex gap-4 justify-center">
-              <Button className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
+              <Button onClick={()=>router.push("/donations")} className="bg-white text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
                 सहयोग करें
               </Button>
               <Button className="border-2 border-white text-white px-6 py-3 rounded-lg font-semibold hover:bg-white hover:text-red-600 transition">

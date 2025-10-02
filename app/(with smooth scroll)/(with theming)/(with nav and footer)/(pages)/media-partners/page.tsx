@@ -1,4 +1,7 @@
 // app/(pages)/media-partners/page.tsx
+import { MediaPartnersHero } from "@/components/sections/media-partners/MediaPartnersHero";
+import { PartnerCTA } from "@/components/sections/media-partners/PartnerCTA";
+import { PartnersGrid } from "@/components/sections/media-partners/PartnersGrid";
 import SectionWrapper from "@/components/wrappers/SectionWrapper";
 
 const MediaPartnersPage = () => {
@@ -8,9 +11,11 @@ const MediaPartnersPage = () => {
       background="transparent"
       navbarSpacing="none"
       padding="none"
-      className="flex flex-col items-center justify-center min-h-screen w-full pointer-events-auto p-10"
+      className="flex flex-col items-center justify-center min-h-screen w-full pointer-events-auto p-10 "
     >
-      Media Partners Page
+      <MediaPartnersHero />
+      <PartnersGrid />
+      <PartnerCTA />
     </SectionWrapper>
   );
 };

@@ -71,6 +71,7 @@ export default function HeroSlider({ sliderImages }: HeroSliderProps) {
         >
           <div className="relative w-full h-full">
             <Image
+              priority
               src={
                 isObjectArray(sliderImages)
                   ? sliderImages[currentSlide]?.src

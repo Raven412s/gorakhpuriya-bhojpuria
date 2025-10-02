@@ -1,12 +1,39 @@
-- abhibhavak ko sanrakshak
-- jugaani kaka ka prernasrot ka ek alag hi section banega 
-- jugani kak ab sanrakshak mein nahi aayenge
-- site pe likhi gayi hindi content ko bhojpuri mein convert karna hai
-- CMS part 1 ke liye abhi add gallery bananhai jisse  cloudinary par images or videos upload ho sakein,
-aur image ko sahi jagah par abhi ke liye statically map karna hai,
-- nayi db connect karni hai
-- or shop hatana hai
-- 80 G ke baare mein content daalna hai
-- or responsive karna hai.
-- payment gateway add karna hai
-- 
+# ✅ Project To-Do List
+
+---
+
+## 🔄 Completed Tasks
+- [x] **अभिभावक → संरक्षक** (नाम बदलना है)  
+- [x] **"जुगानी काका" का प्रेरणास्रोत** – अलग section बनाना है  
+- [x] "जुगानी काका" अब **संरक्षक** में नहीं आएंगे  
+- [x] साइट पर लिखी गई **Hindi content → Bhojpuri** में convert करना है  
+- [x] **CMS (Part 1): Add Gallery**  
+  - [x] Cloudinary पर images/videos upload करने की functionality  
+  - [x] Uploaded image/video को अभी के लिए statically map करना  
+- [x] **Shop section हटाना** है  
+- [x] **80G** के बारे में content डालना है  
+
+---
+
+## ⏳ Pending Tasks
+
+### 📄 Pages & Content
+- [x] **Media Partner Page** बनाना है  
+- [x] **Donations Page** (सहयोग करें बटन के लिए)  
+- [x] Donations में 2 प्रकार के सहयोग की सुविधा देनी है:  
+  - [ ] **आर्थिक सहयोग** (Razorpay payment gateway connect करना)  
+  - [x] **सदस्यता सहयोग** (हमारे साथ जुड़ें बटन → WhatsApp group link share करना)  
+- [ ] **Contact Form** बनाना है  
+
+### 🗄️ Backend / Database
+- [ ] नई **Database connect** करनी है  
+- [ ] **Admin Dashboard** के लिए JWT secret लगाना है और Authentication बनाना है  
+
+### 🎨 Frontend / UI
+- [ ] साइट को पूरी तरह **Responsive** बनाना है  
+
+### 💳 Payment
+- [ ] **Payment Gateway Integration** करना है  
+
+---
+

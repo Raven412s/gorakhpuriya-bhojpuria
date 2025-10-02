@@ -37,16 +37,10 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${poppins.variable} ${lexend.variable} ${nunito.variable}`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          disableTransitionOnChange
-        >
-          <ReactLenis root>
-            {children}
-            <Toaster position="bottom-right" richColors closeButton/>
-          </ReactLenis>
-        </ThemeProvider>
+        <ReactLenis root>
+          {children}
+          <Toaster position="bottom-right" richColors closeButton />
+        </ReactLenis>
       </body>
     </html>
   );
