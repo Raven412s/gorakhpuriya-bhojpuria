@@ -1,9 +1,16 @@
 "use client";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from "@/components/ui/sheet";
 import { motion } from "framer-motion";
+import { Menu } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useMemo, useState } from "react";
-import { Sheet } from "@/components/ui/sheet";
 import Logo from "./Logo";
 
 const BASE_NAV = [
@@ -75,9 +82,62 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Navigation (ज्यों का त्यों) */}
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            {/* ... */}
-          </Sheet>
+          {/* Mobile Navigation */}
+          <div className="md:hidden">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <button
+                  type="button"
+                  aria-label="Open Menu"
+                  className="inline-flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100"
+                >
+                  <Menu className="h-6 w-6" />
+                </button>
+              </SheetTrigger>
+
+              <SheetContent side="right" className="w-[85%] sm:w-[380px]">
+                <SheetHeader className="border-b pb-4">
+                  <SheetTitle className="flex items-center gap-3">
+                    <div className="h-10 w-10">
+                      <Logo className="h-full w-full" />
+                    </div>
+                    <span className="text-lg font-bold text-red-700">
+                      गोरखपुरिया भोजपुरिया
+                    </span>
+                  </SheetTitle>
+                </SheetHeader>
+
+                {/* Nav Links */}
+                <nav className="mt-6 flex flex-col gap-2">
+                  {navItems.map((item) => {
+                    const active = pathname === item.href;
+
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className={`
+                rounded-lg px-4 py-3 text-base font-medium transition
+                ${active
+                            ? "bg-red-50 text-red-700"
+                            : "text-gray-700 hover:bg-gray-100"}
+              `}
+                      >
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </nav>
+
+                {/* Footer / CTA (optional but good UX) */}
+                <div className="mt-auto pt-6 text-center text-sm text-gray-500">
+                  © {new Date().getFullYear()} गोरखपुरिया भोजपुरिया
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+
         </div>
       </div>
     </motion.nav>
