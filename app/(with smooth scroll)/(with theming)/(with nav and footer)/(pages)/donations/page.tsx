@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import MembershipForm from "@/components/forms/membershipForm";
 
 export default function DonatePage() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
@@ -36,7 +37,7 @@ export default function DonatePage() {
             भोजपुरी के आगे बढ़ावे में आपन सहयोग करीं
           </h1>
           <p className="text-lg text-amber-800 max-w-2xl mx-auto leading-relaxed">
-            हमनी के ई अभियान आपके सहयोग के बिना अधूरा बा। आप दू तरीका से हमनी के साथ दे सकीला: 
+            हमनी के ई अभियान आपके सहयोग के बिना अधूरा बा। आप दू तरीका से हमनी के साथ दे सकीला:
             आर्थिक सहयोग दे के भा हमनी के समुदाय से जुड़ के।
           </p>
         </div>
@@ -63,7 +64,7 @@ export default function DonatePage() {
                   आपके दिहल हर एक पईसा भोजपुरी भाषा के संरक्षण आ नया पीढ़ी तक पहुँचावे खातिर इस्तेमाल होई।
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent className="space-y-6 pt-6">
                 {/* Preset Amounts */}
                 <div className="space-y-3">
@@ -73,11 +74,10 @@ export default function DonatePage() {
                       <Button
                         key={amount}
                         variant={selectedAmount === amount ? "default" : "outline"}
-                        className={`h-14 text-lg font-semibold ${
-                          selectedAmount === amount 
-                            ? "bg-amber-600 hover:bg-amber-700 text-white" 
-                            : "border-amber-300 text-amber-800 hover:bg-amber-100"
-                        }`}
+                        className={`h-14 text-lg font-semibold ${selectedAmount === amount
+                          ? "bg-amber-600 hover:bg-amber-700 text-white"
+                          : "border-amber-300 text-amber-800 hover:bg-amber-100"
+                          }`}
                         onClick={() => handlePresetAmountClick(amount)}
                       >
                         ₹{amount}
@@ -136,7 +136,7 @@ export default function DonatePage() {
               </CardContent>
 
               <CardFooter>
-                <Button 
+                <Button
                   className="w-full h-14 bg-amber-600 hover:bg-amber-700 text-white text-lg font-semibold"
                   size="lg"
                 >
@@ -153,37 +153,17 @@ export default function DonatePage() {
                 <CardTitle className="text-2xl text-green-900">
                   हमरे समुदाय से जुड़ीं
                 </CardTitle>
-                <CardDescription className="text-green-700 text-base">
-                  भाषा के सबसे बड़ ताकत ओकरा बोले वाला लोग होलें। हमनी के WhatsApp समूह से जुड़ के एह अभियान के मजबूत बनाईं।
+
+                <CardDescription className="text-green-700 text-base leading-relaxed">
+                  भाषा के सबसे बड़ी ताक़त ओकरा बोले वाला लोग होलें।
+                  Gorakhpuriya Bhojpuriya Family से जुड़ के संस्कृति, पहचान
+                  आ आपसी सहयोग के मजबूत बनाईं।
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-6 pt-6">
-                <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-                  <p className="text-green-800 text-lg leading-relaxed text-center">
-                    हमनी के ई प्रयास बा कि हर वर्ग, उम्र, आ क्षेत्र के भोजपुरी भाषी लोग एक साथ जुड़ें आ भोजपुरी के मान बढ़ावें। 
-                    रउवा हमनी के WhatsApp परिवार के हिस्सा बन के आपन विचार साझा कर सकत बानी आ कार्यक्रम के जानकारी पा सकत बानी।
-                  </p>
-                </div>
+                <MembershipForm />
               </CardContent>
-
-              <CardFooter>
-                <Button 
-                  className="w-full h-14 bg-green-600 hover:bg-green-700 text-white text-lg font-semibold"
-                  size="lg"
-                  asChild
-                >
-                  <a 
-                    href="https://chat.whatsapp.com/your-group-link" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2"
-                  >
-                    <FaWhatsapp className="h-6 w-6" />
-                    WhatsApp पर हमरा साथे जुड़ीं
-                  </a>
-                </Button>
-              </CardFooter>
             </Card>
           </TabsContent>
         </Tabs>

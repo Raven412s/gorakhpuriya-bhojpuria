@@ -33,11 +33,35 @@ export interface EventPerformance {
     title: string;
     performer?: string;
     durationMin?: number;
-    description?: string[]; // changed
-    mediaUrls?: string[]; // changed
+    description?: string[];
+    mediaUrls?: string[];
 }
 
-export interface EventSectionData {
+export interface MediaItem {
+    secure_url: string;
+    type?: string;
+}
+
+export interface EventFromAPI {
+    _id: string;
+    title: string;
+    date: string;
+    venue: string;
+    city?: string;
+    type?: "jutan" | "baithaki" | string;
+    motive?: string;
+    description?: string[];
+    media?: MediaItem[];
+    attendees?: string[];
+    totalPhotos?: number;
+    performances?: EventPerformance[];
+    learnings?: string[];
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+// Type for both static and API events
+export type EventSectionData = EventFromAPI | {
     id: number | string;
     title: string;
     date: string;
@@ -45,13 +69,13 @@ export interface EventSectionData {
     city?: string;
     type?: "jutan" | "baithaki" | string;
     motive?: string;
-    description?: string[]; // changed
-    images: string[]; // string[]
+    description?: string[];
+    images: string[];
     attendees?: string[];
     totalPhotos?: number;
     performances?: EventPerformance[];
     learnings?: string[];
-}
+};
 
 // --------------------
 // Helpers
@@ -71,6 +95,16 @@ const isImageUrl = (url: string) =>
 
 const isVideoUrl = (url: string) => /\.(mp4|webm|ogg|mov)$/i.test(url);
 
+// Helper to get images array from event data
+const getImagesFromEvent = (event: EventSectionData): string[] => {
+    if ('images' in event) {
+        return event.images;
+    } else if ('media' in event && event.media) {
+        return event.media.map(item => item.secure_url);
+    }
+    return [];
+};
+
 // --------------------
 // Main Component
 // --------------------
@@ -79,12 +113,14 @@ export default function EventSection({ event }: { event: EventSectionData }) {
     const [open, setOpen] = useState(false);
     const [index, setIndex] = useState(0);
 
+    const images = getImagesFromEvent(event);
+
     const go = (dir: -1 | 1) => {
-        if (!event.images?.length) return;
+        if (!images.length) return;
         setIndex((p) => {
             const n = p + dir;
-            if (n < 0) return event.images.length - 1;
-            if (n >= event.images.length) return 0;
+            if (n < 0) return images.length - 1;
+            if (n >= images.length) return 0;
             return n;
         });
     };
@@ -157,7 +193,7 @@ export default function EventSection({ event }: { event: EventSectionData }) {
             </CardHeader>
 
             <CardContent className="space-y-6">
-                <HeroSlider sliderImages={event.images} />
+                <HeroSlider sliderImages={images} />
 
                 {event.motive && (
                     <div className="flex items-start gap-3">
@@ -181,7 +217,7 @@ export default function EventSection({ event }: { event: EventSectionData }) {
                 {/* Tabs */}
                 <Tabs
                     defaultValue={
-                        event.images?.length
+                        images.length
                             ? "gallery"
                             : event.performances?.length
                                 ? "performances"
@@ -191,7 +227,7 @@ export default function EventSection({ event }: { event: EventSectionData }) {
                     }
                 >
                     <TabsList className="flex flex-wrap">
-                        {event.images?.length ? (
+                        {images.length ? (
                             <TabsTrigger value="gallery">Gallery</TabsTrigger>
                         ) : null}
                         {event.performances?.length ? (
@@ -209,10 +245,10 @@ export default function EventSection({ event }: { event: EventSectionData }) {
                     </TabsList>
 
                     {/* Gallery */}
-                    {event.images?.length ? (
+                    {images.length ? (
                         <TabsContent value="gallery">
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                                {event.images.map((src, i) => (
+                                {images.map((src, i) => (
                                     <Dialog
                                         key={src}
                                         open={open && index === i}
@@ -236,7 +272,7 @@ export default function EventSection({ event }: { event: EventSectionData }) {
                                         </DialogTrigger>
                                         <DialogContent className="p-0 min-w-screen min-h-screen fixed inset-0 flex items-center justify-center bg-black -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 ">
                                             <Image
-                                                src={event.images[index]}
+                                                src={images[index]}
                                                 alt={`${event.title} ${index + 1}`}
                                                 fill
                                                 className="object-contain"
