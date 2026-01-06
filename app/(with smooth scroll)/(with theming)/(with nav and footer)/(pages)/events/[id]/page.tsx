@@ -19,14 +19,14 @@ export async function generateMetadata({
   try {
     const { id } = await params;
     const event = await getEvent(id);
-    
+
     if (!event) {
       return {
         title: "इवेंट नहीं मिला | गोरखपुरिया भोजपुरिया",
         description: "यह इवेंट उपलब्ध नहीं है",
       };
     }
-    
+
     return {
       title: `${event.title} | गोरखपुरिया भोजपुरिया`,
       description: event.description?.[0] || `गोरखपुरिया भोजपुरिया का ${event.type === "baithaki" ? "बैठकी" : "जुटान"} कार्यक्रम`,
@@ -42,16 +42,16 @@ export async function generateMetadata({
 // Fetch event data from API
 async function getEvent(id: string): Promise<EventFromAPI | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const response = await fetch(`${baseUrl}/api/admin/events/${id}`, {
-      cache: 'no-store', // या 'force-cache' अगर data static है
-      next: { revalidate: 3600 } // 1 hour cache
+      next: { revalidate: 3600 },
     });
-    
+
+
     if (!response.ok) {
       return null;
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error("Error fetching event:", error);
@@ -89,7 +89,7 @@ const EventDetailPage = async ({
       {/* Event Details */}
       <div className="container mx-auto px-4 py-8">
         <EventSection event={event} />
-        
+
         {/* Back to Events Link */}
         <div className="mt-8 text-center">
           <Button asChild variant="outline">
