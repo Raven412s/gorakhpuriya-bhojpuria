@@ -1,15 +1,12 @@
 "use client"
 
-import { type EventFromAPI } from "@/components/sections/events/EventSection";
-import PageHeader from "@/components/sections/shared/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import SectionWrapper from "@/components/wrappers/SectionWrapper";
-import type { Metadata } from "next";
+import type{EventFromAPI } from "@/components/sections/events/EventSection";
+import { toast } from "sonner";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 
 const ClientEvents = () => {
@@ -34,7 +31,7 @@ const ClientEvents = () => {
 
   useEffect(() => {
     fetchEvents();
-  }, []);
+  },[]);
 
 
 
@@ -53,7 +50,7 @@ const ClientEvents = () => {
           ) : (
             events.map((event) => (
               <Card
-                key={event._id}
+                key={event.title + event._id}
                 className="overflow-hidden shadow-sm hover:shadow-lg transition-all relative group py-0"
               >
                 {/* ---------- Media ---------- */}

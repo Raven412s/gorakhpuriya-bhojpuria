@@ -5,7 +5,7 @@ import ClientEvents from "@/components/pages/events";
 import HeroSlider from "@/components/sections/home/HeroSlider";
 import PageHeader from "@/components/sections/shared/PageHeader";
 import SectionWrapper from "@/components/wrappers/SectionWrapper";
-import { Metadata } from "next";
+import type{ Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "बैइठकी जुटान | गोरखपुरिया भोजपुरिया",
